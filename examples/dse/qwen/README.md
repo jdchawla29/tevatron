@@ -1,5 +1,18 @@
 # Document Screenshot Embedding
 
+To use qwen, the following packages are required,
+
+```bash
+pip install qwen_vl_utils torchvision
+```
+and if flash-attention 2 is supported
+
+```bash
+pip install flash-attn --no-build-isolation 
+```
+
+if your device does not support flash-attention-2, pass `--use-flash-attention False` flag
+
 ## Train
 ```bash
 deepspeed --include localhost:0,1 --master_port 60000 train.py \
@@ -31,7 +44,7 @@ deepspeed --include localhost:0,1 --master_port 60000 train.py \
 ```bash
 for shard in 0 1
 do
-CUDA_VISIBLE_DEVICES=$shard python -m tevatron.retriever.driver.encode \
+CUDA_VISIBLE_DEVICES=$shard python encode.py \
   --output_dir=temp \
   --model_name_or_path dse-qwen-ft \
   --bf16 \

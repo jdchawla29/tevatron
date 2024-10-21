@@ -62,6 +62,7 @@ def main():
         normalize=model_args.normalize,
         lora_name_or_path=model_args.lora_name_or_path,
         cache_dir=model_args.cache_dir,
+        attn_implementation="flash_attention_2" if model_args.use_flash_attention else "eager"
     )
 
     encode_dataset = EncodeDataset(

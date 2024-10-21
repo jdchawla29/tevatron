@@ -69,7 +69,7 @@ class TrainCollator:
         passage_image_inputs, passage_video_inputs = process_vision_info(passage_messages)
 
         query_inputs = self.processor(
-            query_texts,
+            text=query_texts,
             images=query_image_inputs,
             videos=query_video_inputs,
             return_tensors="pt",
@@ -77,7 +77,7 @@ class TrainCollator:
         )
 
         passage_inputs = self.processor(
-            passage_texts,
+            text=passage_texts,
             images=passage_image_inputs,
             videos=passage_video_inputs,
             return_tensors="pt",
@@ -119,7 +119,7 @@ class EncodeCollator:
             ]
             query_image_inputs, query_video_inputs = process_vision_info(query_messages)
             inputs = self.processor(
-                query_texts,
+                text=query_texts,
                 images=query_image_inputs,
                 videos=query_video_inputs,
                 return_tensors="pt",
@@ -145,7 +145,7 @@ class EncodeCollator:
             ]
             passage_image_inputs, passage_video_inputs = process_vision_info(passage_messages)
             inputs = self.processor(
-                passage_texts,
+                text=passage_texts,
                 images=passage_image_inputs,
                 videos=passage_video_inputs,
                 return_tensors="pt",

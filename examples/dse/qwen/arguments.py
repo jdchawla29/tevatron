@@ -33,6 +33,12 @@ class ModelArguments:
         metadata={"help": "temperature for softmax"}
     )
 
+    # for flash attention
+    use_flash_attention: bool = field(
+        default=True,
+        metadata={"help": "use flash attention 2"}
+    )
+
     # for lora
     lora: bool = field(default=False,
         metadata={"help": "do parameter-efficient fine-tuning with lora"}
