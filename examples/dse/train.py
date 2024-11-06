@@ -8,6 +8,8 @@ from transformers import (
     set_seed,
 )
 
+from transformers.trainer_utils import get_last_checkpoint
+
 from tevatron.retriever.trainer import TevatronTrainer as Trainer
 
 from dataset import TrainDataset
@@ -81,7 +83,11 @@ def main():
     )
     train_dataset.trainer = trainer
 
-    trainer.train()  # TODO: resume training
+    last_checkpoint = None
+    if os.path.isdir(training_args.output_dir):
+        last_checkpoint = get_last_checkpoint(training_args.output_dir)
+
+    trainer.train(resume_from_checkpoint=(last_checkpoint is not None))
     trainer.save_model()
     if trainer.is_world_process_zero():
         processor.save_pretrained(training_args.output_dir)
